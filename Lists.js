@@ -72,47 +72,46 @@ var list = function() {         // this is referred to outside of the function
             }
         }
 
+ /*       f.iterate = function() {
+            var d = {
+                if (d.current == null) {
+                d.current = l.head;
+                } else {
+                d.current = d.current.next;
+                }
+            }
+        }*/
+
         return f;
     }();        // end of the function application
     return list;
 };
 
-var l1 = new list();        // this refers to the first list function
-l1.concat('a')
-l1.cons('b')
-document.writeln("l1: " + l1.first() + "<BR>");
-document.writeln("l1: " + l1.length() + "<BR>");
-
+var l1 = new list();
 var l2 = new list();
-l2.cons('c')
-document.writeln("<BR>l2: " + l2.car() + "<BR>");
-document.writeln("l2: " + l2.length() + "<BR>");
+l1.cons('x')
+l1.cons('y')
+l1.cons('z')
+l2.cons(l1);
+l2.cons(l1.car());
 
-var l3 = new list();
-var l4 = new list();
-l3.cons('x')
-l3.cons('y')
-l3.cons('z')
-l4.cons(l3);
-l4.cons(l3.car());
-
-document.writeln("<BR>l3: " + l3.car());        // write out the first element of l3
-while(l3.length() > 0) {
-    document.writeln(", " + l3.cdr().car());    // cdr gives you the entire list w/o the first element
+document.writeln("<BR>l1: " + l1.car());        // write out the first element of l3
+while(l1.length() > 0) {
+    document.writeln(", " + l1.cdr().car());    // cdr gives you the entire list w/o the first element
 }
 
-var h = l4.run('head');
-document.writeln("<BR>l4: " + h.data);
-for(var i = 1; i < l4.length(); i++) {
+var h = l2.run('head');
+document.writeln("<BR>l2: " + h.data);
+for(var i = 1; i < l2.length(); i++) {
     h = h.next;
     document.writeln(", " + h.data);
 }
 
-l4.map(function(x){return x + x;});
+l2.map(function(x){return x + x;});
 
-var h = l4.run('head');
-document.writeln("<BR>l4: " + h.data);
-for(var i = 1; i < l4.length(); i++) {
+var h = l2.run('head');
+document.writeln("<BR>l2: " + h.data);
+for(var i = 1; i < l2.length(); i++) {
     h = h.next;
     document.writeln(", " + h.data);
 }
