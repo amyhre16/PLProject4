@@ -71,16 +71,18 @@ var list = function() {         // this is referred to outside of the function
                 }
             }
         }
-
- /*       f.iterate = function() {
-            var d = {
-                if (d.current == null) {
-                d.current = l.head;
+        // Iterator method
+        f.iterate = (function () {
+            var iNode = null;
+            return function () {
+                if (iNode == null) {
+                    iNode = l.head;
                 } else {
-                d.current = d.current.next;
+                    iNode = iNode.next;
                 }
+                return iNode.data;
             }
-        }*/
+        })();
 
         return f;
     }();        // end of the function application
@@ -93,25 +95,13 @@ l1.cons('x')
 l1.cons('y')
 l1.cons('z')
 l2.cons(l1);
-l2.cons(l1.car());
 
-document.writeln("<BR>l1: " + l1.car());        // write out the first element of l3
-while(l1.length() > 0) {
+document.writeln("<BR>original list: " + l1.car());
+while(l1.length() > 1) {
     document.writeln(", " + l1.cdr().car());    // cdr gives you the entire list w/o the first element
 }
 
-var h = l2.run('head');
-document.writeln("<BR>l2: " + h.data);
-for(var i = 1; i < l2.length(); i++) {
-    h = h.next;
-    document.writeln(", " + h.data);
-}
-
-l2.map(function(x){return x + x;});
-
-var h = l2.run('head');
-document.writeln("<BR>l2: " + h.data);
-for(var i = 1; i < l2.length(); i++) {
-    h = h.next;
-    document.writeln(", " + h.data);
-}
+document.writeln("<BR><BR>Iterate Through List<BR>");
+document.writeln("First Method Call: " + l2.iterate());
+document.writeln("<BR>Second Method Call: " + l2.iterate());
+document.writeln("<BR>Third Method Call: " + l2.iterate());
